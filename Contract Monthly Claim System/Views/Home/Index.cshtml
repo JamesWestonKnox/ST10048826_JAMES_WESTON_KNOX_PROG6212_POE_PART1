@@ -1,8 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "CMCS Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <h1 class="display-4">Welcome to the Contract Monthly Claim System</h1>
+    <p class="lead">This system simplifies the process for Lecturers to submit monthly claims, and for Programme Coordinators and Academic Managers to verify and approve them.</p>
+    <hr class="my-4">
+    <p>Features include:</p>
+    <ul>
+        <li>Submit new claims with supporting documents.</li>
+        <li>Track the status of claims in real-time.</li>
+        <li>Programme Coordinators and Managers can easily verify and approve claims.</li>
+    </ul>
+    <p>Please log in to access your dashboard.</p>
+    <a class="btn btn-primary btn-lg" href="/UserAccount/Login" role="button">Login</a>
+</div>
+
+<div>
+    <div>
+        <h2>Lecturer Dashboard</h2>
+        <p>Submit new claims and track your claim status.</p>
+        <p><a class="btn btn-secondary" href="/Claims/UserDashboard">Go to Lecturer Dashboard</a></p>
+    </div>
+    <div>
+        <h2>Programme Coordinator Dashboard</h2>
+        <p>Review and verify claims submitted by lecturers.</p>
+        <p><a class="btn btn-secondary" href="/Claims/AdminDashboard">Go to Coordinator Dashboard</a></p>
+    </div>
 </div>
