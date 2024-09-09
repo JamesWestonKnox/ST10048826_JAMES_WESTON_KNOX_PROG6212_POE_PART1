@@ -4,7 +4,12 @@ namespace Contract_Monthly_Claim_System.Controllers
 {
     public class ClaimsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult UserDashboard()
+        {
+            return View();
+        }
+
+        public IActionResult AdminDashboard()
         {
             return View();
         }

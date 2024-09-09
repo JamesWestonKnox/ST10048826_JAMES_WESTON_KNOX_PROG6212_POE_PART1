@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "CMCS Home";
+    ViewData["Title"] = "Home";
 }
 
-<div>
+<div class="jumbotron">
     <h1 class="display-4">Welcome to the Contract Monthly Claim System</h1>
     <p class="lead">This system simplifies the process for Lecturers to submit monthly claims, and for Programme Coordinators and Academic Managers to verify and approve them.</p>
     <hr class="my-4">
@@ -16,15 +16,17 @@
     <a class="btn btn-primary btn-lg" href="/UserAccount/Login" role="button">Login</a>
 </div>
 
-<div>
-    <div>
+<div class="row text-center">
+    <div class="col-md-4">
         <h2>Lecturer Dashboard</h2>
         <p>Submit new claims and track your claim status.</p>
         <p><a class="btn btn-secondary" href="/Claims/UserDashboard">Go to Lecturer Dashboard</a></p>
     </div>
-    <div>
+    <div class="col-md-4">
         <h2>Programme Coordinator Dashboard</h2>
         <p>Review and verify claims submitted by lecturers.</p>
-        <p><a class="btn btn-secondary" href="/Claims/AdminDashboard">Go to Coordinator Dashboard</a></p>
+        <p><a class="btn btn-secondary" href="/Claims/AdminDashboard">Go to Admin Dashboard</a></p>
     </div>
+
 </div>
+
