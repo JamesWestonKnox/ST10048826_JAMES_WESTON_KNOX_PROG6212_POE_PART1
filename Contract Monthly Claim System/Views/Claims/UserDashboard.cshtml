@@ -10,6 +10,34 @@
 <div class="row text-center" style="margin: 100px">
     <div class="col-md-6">
         <h2>Submit new claim</h2>
+
+        <form action="" method="post" class="account-form">
+
+            <input type="text" name="Module code" placeholder="Module code" required class="form-control mb-3">
+            
+            <select name="Month" class="form-control mb-3" required>
+                <option value="" disabled selected>Select month of claim</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+
+            <input type="number" name="Hours worked" placeholder="Hours worked" required class="form-control mb-3">
+            <input type="Number" name="Hourly rate" placeholder="Hourly rate" required class="form-control mb-3">
+            <input type="file" name="Document" placeholder="Supporting document" class="form-control mb-3">
+
+            <button type="submit" class="btn btn-primary" style="background-color:#1588fc">Submit claim for review</button>
+
+        </form>
     </div>
     <div class="col-md-6">
         <h2>Track current claims</h2>
