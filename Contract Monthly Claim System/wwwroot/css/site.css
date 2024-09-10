@@ -95,4 +95,6 @@ nav {
 
 table {
     width: 75%;
+    border: 1px black solid;
+    margin-top: 30px;
 }
