@@ -3,7 +3,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: darkslategrey;
+    background-color: springgreen;
 }
 
 li {
@@ -14,7 +14,7 @@ li {
         font-family: Gadugi;
         font-size: 20px;
         display: block;
-        color: white;
+        color: black;
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
@@ -22,10 +22,11 @@ li {
 
 
         li a:hover {
-            background-color: lightgray;
+            background-color: white;
+            color: springgreen;
         }
 
-.navbar input[type=text] {
+.navbar {
     float: right;
     padding: 6px;
     border: none;
@@ -34,180 +35,12 @@ li {
     font-size: 20px;
 }
 
-.pageheader {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    font-size: 45px;
-}
-
 h1 {
     text-align: center;
-    font-family: Gadugi;
-    color: darkslategrey;
+    margin-top: 30px
 }
 
-.h1Small {
-    text-align: left;
-    font-family: Gadugi;
-    color: darkslategrey;
-    font-size: 34px;
-    margin-left: 100px;
-    margin-right: 100px;
-    overflow: auto;
-}
-
-.divImages {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-}
-
-div img {
-    margin-bottom: 20px;
-    height: 500px;
-    width: 750px;
-    border: 8px solid #FFBE98;
-}
-
-div h1 {
-    overflow: auto;
-    font-size: 40px;
-}
-
-.imagesSmall {
-    margin-bottom: 20px;
-    height: 400px;
-    width: 600px;
-    border: 8px solid #FFBE98;
-}
-
-p {
-    font-family: Gadugi;
-    color: #faa878;
-    font-size: 28px;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px auto;
-    padding: 0px;
-    max-width: 600px;
-}
-/* (OpenAI,2024)*/
-
-.button-link {
-    flex: 1 1 calc(50% - 20px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-}
-/* (OpenAI,2024)*/
-
-.home-button {
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    display: flex;
-    width: 100%;
-    max-width: 300px;
-    box-sizing: border-box;
-}
-/* (OpenAI,2024)*/
-
-button {
-    display: flex;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
+.home-message {
     text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: darkslategrey;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    margin: auto;
-}
-
-    button:hover {
-        background-color: lightgray
-    }
-
-    button:active {
-        background-color: lightgray;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
-
-table, th, td {
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 100px;
-}
-
-th {
-    font-size: 34px;
-    color: white;
-    font-weight: bold;
-    height: 75px;
-    background-color: #FFBE98;
-    text-align: left;
-    padding-left: 40px;
-}
-
-td {
-    font-size: 30px;
-    color: #faa878;
-    height: 75px;
-    padding-left: 40px;
-    border-bottom: 1px solid #faa878;
-}
-
-table {
-    width: 75%;
-}
-
-input[type=text] {
-    width: 20%;
-    padding: 12px 20px;
-    margin: auto;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-}
-
-input[type=email] {
-    width: 20%;
-    padding: 12px 20px;
-    margin: auto;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-}
-
-input[type=file] {
-    width: 20%;
-    padding: 12px 20px;
-    margin: auto;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-}
-
-form {
-    text-align: center;
-}
-
-a {
-    text-decoration: none;
+    margin-top: 20px;
 }

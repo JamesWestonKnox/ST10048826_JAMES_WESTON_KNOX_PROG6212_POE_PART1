@@ -1,3 +1,32 @@
 ﻿@{
     ViewData["Title"] = "User Dashboard";
 }
+<h2>Lecturer Dashboard</h2>
+<a href="/Claims/SubmitClaim" class="btn btn-primary">Submit New Claim</a>
+
+<h3>Your Claims</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Claim Title</th>
+            <th>Amount</th>
+            <th>Date Submitted</th>
+            <th>Status</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.ClaimID</td>
+                <td>@claim.ClaimTitle</td>
+                <td>@claim.ClaimAmount</td>
+                <td>@claim.SubmissionDate</td>
+                <td>@claim.Status</td>
+                <td><a href="/Claims/ClaimDetails/@claim.ClaimID" class="btn btn-info">View Details</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
