@@ -1,32 +1,17 @@
 ﻿@{
     ViewData["Title"] = "User Dashboard";
 }
-<h2>Lecturer Dashboard</h2>
-<a href="/Claims/SubmitClaim" class="btn btn-primary">Submit New Claim</a>
 
-<h3>Your Claims</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Claim ID</th>
-            <th>Claim Title</th>
-            <th>Amount</th>
-            <th>Date Submitted</th>
-            <th>Status</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var claim in Model)
-        {
-            <tr>
-                <td>@claim.ClaimID</td>
-                <td>@claim.ClaimTitle</td>
-                <td>@claim.ClaimAmount</td>
-                <td>@claim.SubmissionDate</td>
-                <td>@claim.Status</td>
-                <td><a href="/Claims/ClaimDetails/@claim.ClaimID" class="btn btn-info">View Details</a></td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div style="text-align:center;">
+    <h1>Lecturer dashboard </h1>
+    <p class="home-message">Submit new claims and upload supporting documents as well as view and track your current claims.</p>
+</div>
+
+<div class="row text-center" style="margin: 100px">
+    <div class="col-md-6">
+        <h2>Submit new claim</h2>
+    </div>
+    <div class="col-md-6">
+        <h2>Track current claims</h2>
+    </div>
+</div>
