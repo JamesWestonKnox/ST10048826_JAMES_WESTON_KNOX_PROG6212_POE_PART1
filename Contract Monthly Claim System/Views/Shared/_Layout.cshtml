@@ -11,24 +11,25 @@
 <body>
     <header>
         <nav>
-            <ul class="">
+            <h2>Contract Monthly Claim System</h2>
+            <ul>
                 <li>
-                    <a class="" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li class="">
-                    <a class="" asp-area="" asp-controller="UserAccount" asp-action="Login">Account</a>
+                <li>
+                    <a asp-area="" asp-controller="UserAccount" asp-action="Login">Account</a>
                 </li>
-                <li class="">
-                    <a class="" asp-area="" asp-controller="Claims" asp-action="UserDashboard">User Dashboard</a>
+                <li>
+                    <a asp-area="" asp-controller="Claims" asp-action="UserDashboard">User Dashboard</a>
                 </li>
-                <li class="">
-                    <a class="" asp-area="" asp-controller="Claims" asp-action="AdminDashboard">Admin Dashboard</a>
+                <li>
+                    <a asp-area="" asp-controller="Claims" asp-action="AdminDashboard">Admin Dashboard</a>
                 </li>
             </ul>
         </nav>
     </header>
-    <div class="">
-        <main role="main" class="">
+    <div>
+        <main role="main">
             @RenderBody()
         </main>
     </div>

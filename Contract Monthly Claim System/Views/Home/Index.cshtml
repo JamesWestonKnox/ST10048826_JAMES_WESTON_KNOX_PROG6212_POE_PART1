@@ -2,23 +2,23 @@
     ViewData["Title"] = "Home";
 }
 
-<div>
+<div style="text-align:center;">
     <h1>Welcome to the Contract Monthly Claim System</h1>
     <p class="home-message">This system simplifies the process for Lecturers to submit monthly claims, and for Programme Coordinators and Academic Managers to verify and approve them.</p>
-    <p class="home-message" style="margin-top: 60px;">Please log in to access your dashboard.</p>
-    <a class="btn btn-primary btn-lg"  href="/UserAccount/Login" role="button">Login</a>
+    <h3 style="margin-top: 40px">Please login to submit / approve claims</h3>
+    <a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/UserAccount/Login" role="button">Login</a>
 </div>
 
-<div class="row text-center">
-    <div class="col-md-5">
+<div class="row text-center" style="margin: 100px">
+    <div class="col-md-6">
         <h2>Lecturer Dashboard</h2>
         <p>Submit new claims and track your claim status.</p>
-        <p><a class="btn btn-secondary" href="/Claims/UserDashboard">Go to Lecturer Dashboard</a></p>
+        <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/Claims/UserDashboard">Go to Lecturer Dashboard</a></p>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <h2>Academic Manager Dashboard</h2>
         <p>Review and verify claims submitted by lecturers.</p>
-        <p><a class="btn btn-secondary" href="/Claims/AdminDashboard">Go to Admin Dashboard</a></p>
+        <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/Claims/AdminDashboard">Go to Admin Dashboard</a></p>
     </div>
 </div>
 
