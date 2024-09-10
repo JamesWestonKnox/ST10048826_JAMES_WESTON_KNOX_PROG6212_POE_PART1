@@ -82,3 +82,13 @@ nav {
             background-color: white;
             color: dimgray;
             }
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto; 
+    padding: 20px;
+    border-radius: 5px;
+}
