@@ -6,14 +6,34 @@
 //OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Contract_Monthly_Claim_System.Models
 {
-    public class ClaimsModel : Controller
+    public class ClaimsModel
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public ClaimsModel() { }
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string ModuleCode { get; set; }
+
+        [Required]
+        public string MonthOfClaim { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "Hours worked must be a positive number.")]
+        public double HoursWorked { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "Hourly rate must be a positive number.")]
+        public decimal HourlyRate { get; set; }
+
+
+        [Required]
+        public string SupportingDocumentPath { get; set; }
+
     }
 }
+
