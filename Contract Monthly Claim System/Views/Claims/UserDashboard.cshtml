@@ -8,6 +8,7 @@ References:
     Bootstrap, n.d. CSS. [Online] Available at: https://getbootstrap.com/docs/3.4/css/#tables [Accessed 9 September 2024].
     OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 -->
+@model IEnumerable<Contract_Monthly_Claim_System.Models.ClaimsModel>
 
 @{
     ViewData["Title"] = "User Dashboard";
@@ -22,11 +23,11 @@ References:
     <div class="col-md-6">
         <h2>Submit new claim</h2>
 
-        <form action="" method="post" class="account-form">
+        <form asp-action="Create" method="post" class="account-form" enctype="multipart/form-data">
 
-            <input type="text" name="Module code" placeholder="Module code" required class="form-control mb-3">
-            
-            <select name="Month" class="form-control mb-3" required>
+            <input type="text" name="ModuleCode" placeholder="Module code" required class="form-control mb-3">
+
+            <select name="MonthOfClaim" class="form-control mb-3" required>
                 <option value="" disabled selected>Select month of claim</option>
                 <option value="January">January</option>
                 <option value="February">February</option>
@@ -42,8 +43,8 @@ References:
                 <option value="December">December</option>
             </select>
 
-            <input type="number" name="Hours worked" placeholder="Hours worked" required class="form-control mb-3">
-            <input type="Number" name="Hourly rate" placeholder="Hourly rate" required class="form-control mb-3">
+            <input type="number" name="HoursWorked" placeholder="Hours worked" required class="form-control mb-3">
+            <input type="number" name="HourlyRate" placeholder="Hourly rate" required class="form-control mb-3">
             <input type="file" name="Document" placeholder="Supporting document" class="form-control mb-3">
 
             <button type="submit" class="btn btn-primary" style="background-color:#1588fc">Submit claim for review</button>
@@ -59,38 +60,37 @@ References:
                     <th>Claim ID</th>
                     <th>Module code</th>
                     <th>Month</th>
-                    <th>Claim amount</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly rate</th>
                     <th>Supporting document</th>
-                    <th>Claim status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>PROG6212</td>
-                    <td>August</td>
-                    <td>R10 500</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>PROG6212</td>
-                    <td>September</td>
-                    <td>R11 700</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Pending review</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>CLDV6212</td>
-                    <td>August</td>
-                    <td>R9800</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Pending review</td>
-                </tr>
-            </tbody>
-        </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModuleCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MonthOfClaim)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoursWorked)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HourlyRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SupportingDocumentPath)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
 
+        </div>
     </div>
-</div>
