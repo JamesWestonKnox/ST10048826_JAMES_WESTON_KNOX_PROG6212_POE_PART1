@@ -21,17 +21,12 @@ References:
 
         <h2>Create new account</h2>
 
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <div class="alert alert-danger">@error.ErrorMessage</div>
-        }
         <form asp-action="Register" method="post" class="account-form">
 
             <input type="text" name="FirstName" placeholder="First Name" required class="form-control mb-3">
             <input type="text" name="Surname" placeholder="Surname" required class="form-control mb-3">
             <input type="email" name="Email" placeholder="example@gmail.com" required class="form-control mb-3">
             <input type="password" name="Password" placeholder="Password" required class="form-control mb-3">
-            <input type="password" name="ConfirmPassword" placeholder="Confirm Password" required class="form-control mb-3">
             <select name="Role" class="form-control mb-3" required>
                 <option value="" disabled selected>Select your role</option>
                 <option value="Lecturer">Lecturer</option>

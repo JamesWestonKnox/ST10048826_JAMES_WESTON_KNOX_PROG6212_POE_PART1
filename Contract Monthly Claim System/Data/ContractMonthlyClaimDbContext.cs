@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Contract_Monthly_Claim_System.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Contract_Monthly_Claim_System.Data
 {
-    public class ContractMonthlyClaimDbContext : IdentityDbContext<ApplicationUser>
+    public class ContractMonthlyClaimDbContext : DbContext
     {
         public ContractMonthlyClaimDbContext(DbContextOptions<ContractMonthlyClaimDbContext> options) : base(options)
         {
@@ -13,5 +12,7 @@ namespace Contract_Monthly_Claim_System.Data
         }
 
         public DbSet<ClaimsModel> Claims { get; set; }
+
+        public DbSet<UserModel> Users { get; set; }
     }
 }
