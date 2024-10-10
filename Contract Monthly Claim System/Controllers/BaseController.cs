@@ -11,9 +11,11 @@ public class BaseController : Controller
         var userEmail = HttpContext.Session.GetString("UserEmail");
         var userRole = HttpContext.Session.GetString("UserRole");
         var userName = HttpContext.Session.GetString("UserName");
+        var userID = HttpContext.Session.GetInt32("UserID");
 
         ViewBag.IsLoggedIn = !string.IsNullOrEmpty(userEmail);
         ViewBag.UserRole = userRole;
         ViewBag.UserName = userName;
+        ViewBag.UserID = userID;
     }
 }

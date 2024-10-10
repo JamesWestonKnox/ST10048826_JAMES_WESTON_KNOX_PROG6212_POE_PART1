@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.Identity.Client;
 
 namespace Contract_Monthly_Claim_System.Controllers
 {
@@ -30,9 +31,16 @@ namespace Contract_Monthly_Claim_System.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> UserDashboard()
+        public IActionResult UserDashboard()
         {
-            return View(await _context.Claims.ToListAsync());
+            var userID = ViewBag.UserID as int?;
+
+            var claims = _context.Claims
+                             .Where(c => c.UserID == userID)
+                             .ToList();
+
+            ViewBag.Claims = claims;
+            return View();
         }
 
         public IActionResult AdminDashboard()
@@ -40,6 +48,59 @@ namespace Contract_Monthly_Claim_System.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        public IActionResult SubmitClaim(ClaimsModel model, IFormFile DocumentPath)
+        {
+            ModelState.Remove("DocumentPath");
+            ModelState.Remove("DocumentName");
+            ModelState.Remove("User");
+
+            if (!ModelState.IsValid)
+            {
+                // Log or inspect what is wrong with ModelState
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); // You can replace this with proper logging
+                }
+
+                return View("UserDashboard", model);
+            }
+
+            var userID = HttpContext.Session.GetInt32("UserID");
+            if (userID == null)
+            {
+                // Handle the case where the user is not logged in or session expired
+                return RedirectToAction("Login", "UserAccount");
+            }
+
+            model.UserID = (int)userID;
+
+            if (DocumentPath != null && DocumentPath.Length > 0)
+            {
+                var filePath = Path.Combine("wwwroot/documents", DocumentPath.FileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    DocumentPath.CopyTo(stream);
+                }
+
+                model.DocumentPath = filePath;
+                model.DocumentName = DocumentPath.FileName;
+            }
+
+            _context.Claims.Add(model);
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); // Log or handle the database save failure
+                return View("UserDashboard", model);
+            }
+
+            return RedirectToAction("UserDashboard");
+        }
     }
 }

@@ -11,9 +11,9 @@ namespace Contract_Monthly_Claim_System.Data
 
         }
 
-        public DbSet<ClaimsModel> Claims { get; set; }
 
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<ClaimsModel> Claims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

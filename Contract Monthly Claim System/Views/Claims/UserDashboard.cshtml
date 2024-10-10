@@ -8,7 +8,7 @@ References:
     Bootstrap, n.d. CSS. [Online] Available at: https://getbootstrap.com/docs/3.4/css/#tables [Accessed 9 September 2024].
     OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 -->
-@model IEnumerable<Contract_Monthly_Claim_System.Models.ClaimsModel>
+@model Contract_Monthly_Claim_System.Models.ClaimsModel
 
 @{
     ViewData["Title"] = "User Dashboard";
@@ -21,76 +21,53 @@ References:
 
 <div class="row text-center" style="margin: 100px">
     <div class="col-md-6">
+
         <h2>Submit new claim</h2>
-
-        <form asp-action="Create" method="post" class="account-form" enctype="multipart/form-data">
-
+        <form asp-action="SubmitClaim" method="post" class="account-form" enctype="multipart/form-data">
+            
             <input type="text" name="ModuleCode" placeholder="Module code" required class="form-control mb-3">
-
-            <select name="MonthOfClaim" class="form-control mb-3" required>
-                <option value="" disabled selected>Select month of claim</option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-            </select>
-
             <input type="number" name="HoursWorked" placeholder="Hours worked" required class="form-control mb-3">
             <input type="number" name="HourlyRate" placeholder="Hourly rate" required class="form-control mb-3">
-            <input type="file" name="Document" placeholder="Supporting document" class="form-control mb-3">
+            <input type="date" name="DateOfClaim" placeholder="Hourly rate" required class="form-control mb-3">
+            <input type="file" name="DocumentPath" placeholder="Supporting document" class="form-control mb-3">
 
-            <button type="submit" class="btn btn-primary" style="background-color:#1588fc">Submit claim for review</button>
+            <button type="submit" class="btn btn-primary" style="background-color:#1588fc">Submit claim</button>
 
         </form>
     </div>
     <div class="col-md-6">
         <h2>Track current claims</h2>
-
         <table class="table">
             <thead>
                 <tr>
-                    <th>Claim ID</th>
-                    <th>Module code</th>
-                    <th>Month</th>
+                    <th>Module Code</th>
                     <th>Hours Worked</th>
-                    <th>Hourly rate</th>
-                    <th>Supporting document</th>
+                    <th>Hourly Rate</th>
+                    <th>Date of Claim</th>
+                    <th>Document Name</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @if (ViewBag.Claims != null && ViewBag.Claims.Count > 0)
+                {
+                    foreach (var claim in ViewBag.Claims)
+                    {
+                        <tr>
+                            <td>@claim.ModuleCode</td>
+                            <td>@claim.HoursWorked</td>
+                            <td>@claim.HourlyRate</td>
+                            <td>@claim.DateOfClaim?.ToShortDateString()</td>
+                            <td>@claim.DocumentName</td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ModuleCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MonthOfClaim)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.HoursWorked)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.HourlyRate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SupportingDocumentPath)
-                        </td>
+                        <td colspan="5">No claims found.</td>
                     </tr>
                 }
-                </tbody>
-            </table>
-
-        </div>
+            </tbody>
+        </table>
     </div>
+</div>

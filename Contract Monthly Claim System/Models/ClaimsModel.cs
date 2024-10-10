@@ -5,35 +5,26 @@
 //Bootstrap, n.d. CSS. [Online] Available at: https://getbootstrap.com/docs/3.4/css/#tables [Accessed 9 September 2024].
 //OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Contract_Monthly_Claim_System.Models
 {
     public class ClaimsModel
     {
-        public ClaimsModel() { }
-        public int Id { get; set; }
+        [Key]
+        public int ClaimID { get; set; }
+        public int UserID   { get; set; }
 
-        [Required]
-        [StringLength(10)]
+        [ForeignKey("UserID")] // Specify the foreign key relationship
+        public virtual UserModel User { get; set; } // Navigation property
         public string ModuleCode { get; set; }
-
-        [Required]
-        public string MonthOfClaim { get; set; }
-
-        [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Hours worked must be a positive number.")]
+        public DateTime? DateOfClaim { get; set; }
         public double HoursWorked { get; set; }
-
-        [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Hourly rate must be a positive number.")]
         public decimal HourlyRate { get; set; }
+        public string DocumentPath { get; set; }
 
-
-        [Required]
-        public string SupportingDocumentPath { get; set; }
-
+        public string DocumentName { get; set; }
     }
 }
 

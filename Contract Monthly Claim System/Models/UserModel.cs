@@ -20,7 +20,8 @@ namespace Contract_Monthly_Claim_System.Models
         public string Password { get; set; }
 
         [NotMapped]
-        public string ConfirmPassword { get; set; }  
+        public string ConfirmPassword { get; set; }
 
+        public virtual ICollection<ClaimsModel> Claims { get; set; } = new List<ClaimsModel>();
     }
 }
