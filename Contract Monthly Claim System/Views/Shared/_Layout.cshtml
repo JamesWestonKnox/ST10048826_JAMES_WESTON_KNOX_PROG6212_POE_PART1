@@ -29,13 +29,26 @@ References:
                 </li>
                 @if (ViewBag.IsLoggedIn)
                 {
-                    <li>
-                        <a asp-area="" asp-controller="UserAccount" asp-action="Login">Account</a>
-                    </li>
+                    
                     @if (ViewBag.UserRole == "Lecturer")
                     {
                         <li>
                             <a asp-area="" asp-controller="Claims" asp-action="UserDashboard">Lecturer Dashboard</a>
+                        </li>
+
+                        <li class="nav-item dropdown" style="">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="UserAccount" asp-action="AccountSettings">Account Settings</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="UserAccount" asp-action="Logout">Logout</a>
+                                </li>
+                            </ul>
                         </li>
                     }
                     else
@@ -43,12 +56,30 @@ References:
                         <li>
                             <a asp-area="" asp-controller="Claims" asp-action="AdminDashboard">Programme Coordinator / Academic Manager Dashboard</a>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="UserAccount" asp-action="AccountSettings">Account Settings</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="UserAccount" asp-action="Logout">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
                     }
                 }
                 else
                 {
                     <li>
                         <a asp-area="" asp-controller="UserAccount" asp-action="Login">Login</a>
+                    </li>
+                    <li style="margin-right: auto;">
+                        <a asp-area="" asp-controller="UserAccount" asp-action="Register">Register</a>
                     </li>
                 }
             </ul>

@@ -13,7 +13,7 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     background-color: #415256;
     display: flex;
 }
@@ -36,10 +36,11 @@ li {
         li a:hover {
             background-color: white;
             color: dimgray;
+            border-radius: 8px;
         }
 
 .navbar {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #415256;
@@ -59,22 +60,24 @@ h1 {
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: #415256; 
-    padding: 10px 16px; 
+    background-color: #415256;
+    padding: 10px 16px;
 }
+
     nav h2 {
-        margin: 0; 
-        color: #1588fc; 
-        font-family: Gadugi, sans-serif; 
-        font-size: 24px; 
+        margin: 0;
+        color: #1588fc;
+        font-family: Gadugi, sans-serif;
+        font-size: 24px;
     }
 
     nav ul {
-        display: flex; 
-        list-style: none; 
-        margin: 0; 
-        padding: 0; 
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        flex-grow: 1;
     }
 
         nav ul li {
@@ -82,24 +85,29 @@ nav {
         }
 
             nav ul li a {
-                font-family: Gadugi, sans-serif; 
-                font-size: 20px; 
-                color: white; 
-                text-decoration: none; 
-                padding: 10px 16px; 
+                font-family: Gadugi, sans-serif;
+                font-size: 20px;
+                color: white;
+                text-decoration: none;
+                padding: 10px 16px;
             }
 
-            nav ul li a:hover {
-            background-color: white;
-            color: dimgray;
-            }
+                nav ul li a:hover {
+                    background-color: white;
+                    color: dimgray;
+                    border-radius: 12px;
+                }
+
+    nav .nav-item.dropdown {
+        margin-left: auto; 
+    }
 
 .account-form {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 350px;
-    margin: 0 auto; 
+    margin: 0 auto;
     padding: 20px;
     border-radius: 5px;
 }
@@ -108,4 +116,26 @@ table {
     width: 75%;
     border: 1px black solid;
     margin-top: 30px;
+}
+
+.nav-link.dropdown-toggle:hover {
+    background-color: white;
+    color: dimgray;
+    border-radius: 12px;
+}
+
+.nav-link.dropdown-toggle {
+    color: white;
+    border-radius: 12px;
+}
+
+dropdown-item {
+    color: dimgray; /* Text color for dropdown items */
+    background-color: white; /* Set background color */
+}
+
+/* Remove hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: white; /* No change on hover */
+    color: dimgray; /* No change on hover */
 }

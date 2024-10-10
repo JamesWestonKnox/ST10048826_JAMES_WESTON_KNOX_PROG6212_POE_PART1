@@ -23,20 +23,30 @@ References:
     @if (ViewBag.UserRole == "Lecturer")
     {
         <div class="row text-center" style="margin: 100px">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h2>Lecturer Dashboard</h2>
                 <p>Submit new claims and track your claim status.</p>
                 <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/Claims/UserDashboard">Go to Lecturer Dashboard</a></p>
+            </div>
+             <div class="col-md-6">
+                <h2>Manage Account</h2>
+                <p>Logout or edit account settings.</p>
+                <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/UserAccount/AccountSettings">Go to Account Settings</a></p>
             </div>
         </div>
     }
     else
     {
         <div class="row text-center" style="margin: 100px">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h2>Academic Manager Dashboard</h2>
                 <p>Review and verify claims submitted by lecturers.</p>
                 <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/Claims/AdminDashboard">Go to Admin Dashboard</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Manage Account</h2>
+                <p>Logout or edit account settings.</p>
+                <p><a class="btn btn-primary btn-lg" style="background-color:#1588fc" href="/UserAccount/AccountSettings">Go to Account Settings</a></p>
             </div>
         </div>
     }

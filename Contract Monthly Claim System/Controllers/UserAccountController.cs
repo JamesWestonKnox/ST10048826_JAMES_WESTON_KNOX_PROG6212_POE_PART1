@@ -33,6 +33,20 @@ namespace Contract_Monthly_Claim_System.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult AccountSettings()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
@@ -40,13 +54,13 @@ namespace Contract_Monthly_Claim_System.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Log the validation errors to the console for debugging
+
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     Console.WriteLine(error.ErrorMessage);
                 }
 
-                return View(model); // Return to the view so you can see the form again
+                return View(model);
             }
 
             if (model.Password != model.ConfirmPassword)
