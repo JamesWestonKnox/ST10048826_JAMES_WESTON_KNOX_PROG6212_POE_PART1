@@ -6,8 +6,8 @@
 //OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 
 using Contract_Monthly_Claim_System.Data;
+using Contract_Monthly_Claim_System.Hashing;
 using Contract_Monthly_Claim_System.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contract_Monthly_Claim_System.Controllers
@@ -36,21 +36,43 @@ namespace Contract_Monthly_Claim_System.Controllers
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
-            if (ModelState.IsValid)
+            ModelState.Remove("PasswordHash");
+            if (!ModelState.IsValid)
             {
-                if (_context.Users.Any(u => u.Email == model.Email))
+                // Log the validation errors to the console for debugging
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    ModelState.AddModelError("Email", "Email is already taken.");
-                    return View(model);
+                    Console.WriteLine(error.ErrorMessage);
                 }
 
-                _context.Users.Add(model);
-                _context.SaveChanges();
-
-                return RedirectToAction("Login", "UserAccount");
+                return View(model); // Return to the view so you can see the form again
             }
 
-            return View(model);
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
+                return View(model);
+            }
+
+            if (_context.Users.Any(u => u.Email == model.Email))
+            {
+                ModelState.AddModelError("Email", "Email is already taken.");
+                return View(model);
+            }
+
+            var user = new UserModel
+            {
+                FirstName = model.FirstName,
+                Surname = model.Surname,
+                Email = model.Email,
+                PasswordHash = PasswordHasher.HashPassword(model.Password),
+                Role = model.Role
+            };
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("Login", "UserAccount");
         }
     }
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Contract_Monthly_Claim_System.Migrations
 {
     [DbContext(typeof(ContractMonthlyClaimDbContext))]
-    [Migration("20241009180205_AddUserModel")]
-    partial class AddUserModel
+    [Migration("20241010051833_intitalCreate")]
+    partial class intitalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,8 +72,7 @@ namespace Contract_Monthly_Claim_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")

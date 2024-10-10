@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Contract_Monthly_Claim_System.Models
 {
@@ -9,9 +11,16 @@ namespace Contract_Monthly_Claim_System.Models
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        
-        public string Password { get; set; }
+
+        public string PasswordHash { get; set; }
+
         public string Role { get; set; }
+
+        [NotMapped]
+        public string Password { get; set; }
+
+        [NotMapped]
+        public string ConfirmPassword { get; set; }  
 
     }
 }
