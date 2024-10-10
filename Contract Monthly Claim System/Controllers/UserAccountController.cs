@@ -37,6 +37,7 @@ namespace Contract_Monthly_Claim_System.Controllers
         public IActionResult Register(UserModel model)
         {
             ModelState.Remove("PasswordHash");
+
             if (!ModelState.IsValid)
             {
                 // Log the validation errors to the console for debugging
@@ -50,13 +51,13 @@ namespace Contract_Monthly_Claim_System.Controllers
 
             if (model.Password != model.ConfirmPassword)
             {
-                ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
+                ModelState.AddModelError("ConfirmPassword", "Passwords do not match");
                 return View(model);
             }
 
             if (_context.Users.Any(u => u.Email == model.Email))
             {
-                ModelState.AddModelError("Email", "Email is already taken.");
+                ModelState.AddModelError("Email", "Email is already taken");
                 return View(model);
             }
 
@@ -73,6 +74,27 @@ namespace Contract_Monthly_Claim_System.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Login", "UserAccount");
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginModel model) 
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+                if (user != null && PasswordHasher.VerifyPassword(model.Password, user.PasswordHash))
+                {
+                    HttpContext.Session.SetString("UserEmail", user.Email);
+                    HttpContext.Session.SetString("UserRole", user.Role);
+                    HttpContext.Session.SetInt32("UserID", user.UserID);
+
+                    return RedirectToAction("Index", "Home"); // Redirect to home page
+                }
+
+                ModelState.AddModelError("", "Invalid email or password.");
+            }
+
+            return View(model);
         }
     }
 }

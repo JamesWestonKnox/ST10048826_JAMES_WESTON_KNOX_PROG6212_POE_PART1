@@ -20,7 +20,20 @@ References:
     <div class="col-md-12">
 
         <h2>Create new account</h2>
-        <form asp-action="Register" method="post" class="account-form" novalidate>
+        <form asp-action="Register" method="post" class="account-form">
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" style="text-align: center;background-color: #f8d7da; color: #721c24; display:flex; flex-direction: column;  padding: 15px;  align-items:center; border-radius: 4px;" role="alert">
+                    <strong>Registration failed:</strong>
+                    <ul class="mb-0" style="background-color: #f8d7da;margin: 0;list-style: none; text-align:center">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li style="color: #721c24;">@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
 
             <input type="text" name="FirstName" placeholder="First Name" required class="form-control mb-3">
             <input type="text" name="Surname" placeholder="Surname" required class="form-control mb-3">
@@ -30,8 +43,7 @@ References:
             <select name="Role" class="form-control mb-3" required>
                 <option value="" disabled selected>Select your role</option>
                 <option value="Lecturer">Lecturer</option>
-                <option value="Academic Manager">Academic Manager</option>
-                <option value="Coordinator">Coordinator</option>
+                <option value="Academic Manager">Academic Manager /  Programme Coordinator</option>
             </select>
             <button type="submit" class="btn btn-primary" style="background-color:#1588fc">Create Account</button>
 
