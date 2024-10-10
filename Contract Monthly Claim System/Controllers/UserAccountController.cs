@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Contract_Monthly_Claim_System.Controllers
 {
-    public class UserAccountController : Controller
+    public class UserAccountController : BaseController
     {
         private readonly ContractMonthlyClaimDbContext _context;
 
@@ -87,6 +87,7 @@ namespace Contract_Monthly_Claim_System.Controllers
                     HttpContext.Session.SetString("UserEmail", user.Email);
                     HttpContext.Session.SetString("UserRole", user.Role);
                     HttpContext.Session.SetInt32("UserID", user.UserID);
+                    HttpContext.Session.SetString("UserName", user.FirstName + " " +  user.Surname);
 
                     return RedirectToAction("Index", "Home"); // Redirect to home page
                 }

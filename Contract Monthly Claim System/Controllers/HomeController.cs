@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace Contract_Monthly_Claim_System.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

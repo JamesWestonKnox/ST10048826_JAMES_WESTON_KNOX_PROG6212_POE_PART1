@@ -22,7 +22,7 @@ using System.IO;
 
 namespace Contract_Monthly_Claim_System.Controllers
 {
-    public class ClaimsController : Controller
+    public class ClaimsController : BaseController
     {
         private readonly ContractMonthlyClaimDbContext _context;
 
