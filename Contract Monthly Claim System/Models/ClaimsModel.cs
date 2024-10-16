@@ -25,6 +25,7 @@ namespace Contract_Monthly_Claim_System.Models
         public string DocumentPath { get; set; }
 
         public string DocumentName { get; set; }
+        public string ClaimStatus { get; set; } = "Pending";
     }
 }
 

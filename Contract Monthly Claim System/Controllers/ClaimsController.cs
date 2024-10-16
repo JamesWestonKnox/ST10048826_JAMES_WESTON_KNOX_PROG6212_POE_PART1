@@ -20,6 +20,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Identity.Client;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Contract_Monthly_Claim_System.Controllers
 {
@@ -45,6 +46,14 @@ namespace Contract_Monthly_Claim_System.Controllers
 
         public IActionResult AdminDashboard()
         {
+            var pendingClaims = _context.Claims.Where(c => c.ClaimStatus == "Pending").ToList();
+
+            var pastClaims = _context.Claims?.Where(c => c.ClaimStatus != "Pending").ToList();
+
+            ViewBag.PendingClaims = pendingClaims;
+
+            ViewBag.PastClaims = pastClaims;
+
             return View();
         }
 
@@ -60,16 +69,14 @@ namespace Contract_Monthly_Claim_System.Controllers
                 // Log or inspect what is wrong with ModelState
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    Console.WriteLine(error.ErrorMessage); // You can replace this with proper logging
+                    Console.WriteLine(error.ErrorMessage); 
                 }
 
                 return View("UserDashboard", model);
             }
-
             var userID = HttpContext.Session.GetInt32("UserID");
             if (userID == null)
             {
-                // Handle the case where the user is not logged in or session expired
                 return RedirectToAction("Login", "UserAccount");
             }
 
@@ -96,11 +103,25 @@ namespace Contract_Monthly_Claim_System.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message); // Log or handle the database save failure
+                Console.WriteLine(ex.Message);
                 return View("UserDashboard", model);
             }
 
             return RedirectToAction("UserDashboard");
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateClaimStatus(int claimID, string status)
+        {
+            var claim = _context.Claims.FirstOrDefault(c => c.ClaimID == claimID);
+            if (claim != null)
+            {
+                claim.ClaimStatus = status;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("AdminDashboard");
         }
     }
 }

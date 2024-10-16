@@ -8,7 +8,7 @@ References:
    Bootstrap, n.d. CSS. [Online] Available at: https://getbootstrap.com/docs/3.4/css/#tables [Accessed 9 September 2024].
    OpenAI.2024.Chat-GPT (Version 3.5).[Large language model].Available at: https://chat.openai.com/ [Accessed: 8 September 2024]
 -->
-
+@model Contract_Monthly_Claim_System.Models.ClaimsModel
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
@@ -22,73 +22,110 @@ References:
     <div class="col-md-12">
         <h2>Claims pending review and approval</h2>
 
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Claim ID</th>
-                    <th>Lecturer name</th>
-                    <th>Module code</th>
-                    <th>Month</th>
-                    <th>Claim amount</th>
-                    <th>Supporting document</th>
+                    <th>Module</th>
+                    <th>Lecturer</th>
+                    <th>Claim Total</th>
+                    <th>Date</th>
+                    <th>Document</th>
                     <th>Claim status</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>002</td>
-                    <td>James Knox</td>
-                    <td>PROG6212</td>
-                    <td>September</td>
-                    <td>R11 700</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Pending review</td>
-                    <td><a class="btn btn-primary btn-sml" style="background-color:#1588fc">Approve</a></td>
-                    <td><a class="btn btn-primary btn-sml" style="background-color:red;border: red;">Reject</a></td>
-                </tr>   
-                <tr>
-                    <td>003</td>
-                    <td>James Knox</td>
-                    <td>CLDV6212</td>
-                    <td>August</td>
-                    <td>R9800</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Pending review</td>
-                    <td><a class="btn btn-primary btn-sml" style="background-color:#1588fc">Approve</a></td>
-                    <td><a class="btn btn-primary btn-sml" style="background-color:red; border: red;">Reject</a></td>
-                </tr>
+                @if (ViewBag.PendingClaims != null && ViewBag.PendingClaims.Count > 0)
+                {
+                    foreach (var claim in ViewBag.PendingClaims)
+                    {
+                         var ClaimTotal = (int)(((int)claim.HourlyRate) * claim.HoursWorked);
+                         <tr>
+                             <td>@claim.ClaimID</td>
+                             <td>@claim.ModuleCode</td>
+                             <td></td>
+                             <td>R @ClaimTotal</td>
+                             <td>@claim.DateOfClaim?.ToShortDateString()</td>
+                             <td>
+                                @if (!string.IsNullOrEmpty(claim.DocumentName))
+                                {
+                                    <a href="/documents/@claim.DocumentName" target="_blank">1 File</a>
+                                }
+                                else
+                                {
+                                    @:None
+                                }
+                            </td>
+                            <td>
+                                <form asp-action="UpdateClaimStatus" method="post" style="display:inline;">
+                                     <input type="hidden" name="claimID" value="@claim.ClaimID" />
+                                     <button type="submit" name="status" value="Approved" class="btn btn-primary" style="background-color:#1588fc">Approve</button>
+                                </form>
+                                <form asp-action="UpdateClaimStatus" method="post" style="display:inline;">
+                                    <input type="hidden" name="claimID" value="@claim.ClaimID" />
+                                    <button type="submit" name="status" value="Rejected" class="btn btn-primary" style="color: red; background-color:#1588fc">Reject</button>
+                                </form>
+                           </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No pending claims</td>
+                    </tr>
+                }
             </tbody>
-        </table>
+        </table
     </div>
     <div class="col-md-12" style="margin-top: 60px">
-        <h2>Approved claims</h2>
+        <h2>Past claims</h2>
         
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Claim ID</th>
-                    <th>Lecturer name</th>
-                    <th>Module code</th>
-                    <th>Month</th>
-                    <th>Claim amount</th>
-                    <th>Supporting document</th>
+                    <th>Module</th>
+                    <th>Lecturer</th>
+                    <th>Claim Total</th>
+                    <th>Date</th>
+                    <th>Document</th>
                     <th>Claim status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>James Knox</td>
-                    <td>PROG6212</td>
-                    <td>August</td>
-                    <td>R10 500</td>
-                    <td>Timesheet.pdf</td>
-                    <td>Approved</td>
-                </tr>
-
+                @if (ViewBag.PastClaims != null && ViewBag.PastClaims.Count > 0)
+                {
+                    foreach (var claim in ViewBag.PastClaims)
+                    {
+                         var ClaimTotal = (int)(((int)claim.HourlyRate) * claim.HoursWorked);
+                         <tr>
+                             <td>@claim.ClaimID</td>
+                             <td>@claim.ModuleCode</td>
+                             <td></td>
+                             <td>R @ClaimTotal</td>
+                             <td>@claim.DateOfClaim?.ToShortDateString()</td>
+                             <td>
+                                @if (!string.IsNullOrEmpty(claim.DocumentName))
+                                {
+                                    <a href="/documents/@claim.DocumentName" target="_blank">1 File</a>
+                                }
+                                else
+                                {
+                                    @:None
+                                }
+                            </td>
+                            <td>@claim.ClaimStatus</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No past claims</td>
+                    </tr>
+                }
             </tbody>
-        </table>
+        </table
     </div>
 </div>
