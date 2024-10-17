@@ -36,9 +36,7 @@ namespace Contract_Monthly_Claim_System.Controllers
         {
             var userID = ViewBag.UserID as int?;
 
-            var claims = _context.Claims
-                             .Where(c => c.UserID == userID)
-                             .ToList();
+            var claims = _context.Claims.Where(c => c.UserID == userID).ToList();
 
             ViewBag.Claims = claims;
             return View();
@@ -46,9 +44,9 @@ namespace Contract_Monthly_Claim_System.Controllers
 
         public IActionResult AdminDashboard()
         {
-            var pendingClaims = _context.Claims.Where(c => c.ClaimStatus == "Pending").ToList();
+            var pendingClaims = _context.Claims.Where(c => c.ClaimStatus == "Pending").Include(c => c.User).ToList();
 
-            var pastClaims = _context.Claims?.Where(c => c.ClaimStatus != "Pending").ToList();
+            var pastClaims = _context.Claims?.Where(c => c.ClaimStatus != "Pending").Include(c => c.User).ToList();
 
             ViewBag.PendingClaims = pendingClaims;
 
@@ -66,7 +64,6 @@ namespace Contract_Monthly_Claim_System.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Log or inspect what is wrong with ModelState
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     Console.WriteLine(error.ErrorMessage); 
@@ -74,6 +71,7 @@ namespace Contract_Monthly_Claim_System.Controllers
 
                 return View("UserDashboard", model);
             }
+
             var userID = HttpContext.Session.GetInt32("UserID");
             if (userID == null)
             {
@@ -84,7 +82,24 @@ namespace Contract_Monthly_Claim_System.Controllers
 
             if (DocumentPath != null && DocumentPath.Length > 0)
             {
-                var filePath = Path.Combine("wwwroot/documents", DocumentPath.FileName);
+                if (DocumentPath.Length > 5000000)
+                {
+                    ModelState.AddModelError("", "File exceeds size limit");
+                    return View("UserDashboard", model);
+                }
+
+                var validFileTypes = new[] { ".pdf", ".docx", ".xlsx" };
+                var fileType = Path.GetExtension(DocumentPath.FileName).ToLower();
+
+                if (!validFileTypes.Contains(fileType)) 
+                {
+                    ModelState.AddModelError("", "Invalid file type.");
+                    return View("UserDashboard", model); ;
+                }
+
+                var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Documents");
+
+                var filePath = Path.Combine(uploadFolder, DocumentPath.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -93,6 +108,11 @@ namespace Contract_Monthly_Claim_System.Controllers
 
                 model.DocumentPath = filePath;
                 model.DocumentName = DocumentPath.FileName;
+            }
+            else
+            {
+                model.DocumentPath = null;
+                model.DocumentName = null;
             }
 
             _context.Claims.Add(model);
@@ -122,6 +142,26 @@ namespace Contract_Monthly_Claim_System.Controllers
             }
 
             return RedirectToAction("AdminDashboard");
+        }
+
+        public IActionResult ViewDocument (string fileName)
+        {
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Documents");
+
+            var filePath = Path.Combine(uploadFolder, fileName);
+
+            var fileType = Path.GetExtension(fileName).ToLower();
+            var contentType = fileType switch
+            {
+                ".pdf" => "application/pdf",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                _ => "application/octet-stream"
+            };
+
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            return File(fileStream, contentType, fileName);
+
         }
     }
 }

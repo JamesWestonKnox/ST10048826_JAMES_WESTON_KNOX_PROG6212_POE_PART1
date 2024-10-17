@@ -22,9 +22,9 @@ namespace Contract_Monthly_Claim_System.Models
         public DateTime? DateOfClaim { get; set; }
         public double HoursWorked { get; set; }
         public decimal HourlyRate { get; set; }
-        public string DocumentPath { get; set; }
+        public string? DocumentPath { get; set; }
 
-        public string DocumentName { get; set; }
+        public string? DocumentName { get; set; }
         public string ClaimStatus { get; set; } = "Pending";
     }
 }

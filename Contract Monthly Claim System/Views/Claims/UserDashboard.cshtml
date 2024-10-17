@@ -62,7 +62,7 @@ References:
                             <td>
                                 @if (!string.IsNullOrEmpty(claim.DocumentName))
                                 {
-                                    <a href="/documents/@claim.DocumentName" target="_blank">1 File</a>
+                                    <a href="@Url.Action("ViewDocument", "Claims", new { fileName = claim.DocumentName} )" target="_blank">Open Document</a>
                                 }
                                 else
                                 {

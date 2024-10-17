@@ -103,7 +103,7 @@ namespace Contract_Monthly_Claim_System.Controllers
                     HttpContext.Session.SetInt32("UserID", user.UserID);
                     HttpContext.Session.SetString("UserName", user.FirstName + " " +  user.Surname);
 
-                    return RedirectToAction("Index", "Home"); // Redirect to home page
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Invalid email or password.");

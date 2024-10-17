@@ -43,7 +43,7 @@ References:
                          <tr>
                              <td>@claim.ClaimID</td>
                              <td>@claim.ModuleCode</td>
-                             <td></td>
+                             <td>@claim.User?.FirstName @claim.User?.Surname</td>
                              <td>R @ClaimTotal</td>
                              <td>@claim.DateOfClaim?.ToShortDateString()</td>
                              <td>
@@ -63,7 +63,7 @@ References:
                                 </form>
                                 <form asp-action="UpdateClaimStatus" method="post" style="display:inline;">
                                     <input type="hidden" name="claimID" value="@claim.ClaimID" />
-                                    <button type="submit" name="status" value="Rejected" class="btn btn-primary" style="color: red; background-color:#1588fc">Reject</button>
+                                    <button type="submit" name="status" value="Rejected" class="btn btn-primary" style="background-color:red">Reject</button>
                                 </form>
                            </td>
                         </tr>
@@ -102,7 +102,7 @@ References:
                          <tr>
                              <td>@claim.ClaimID</td>
                              <td>@claim.ModuleCode</td>
-                             <td></td>
+                             <td>@claim.User?.FirstName @claim.User?.Surname</td>
                              <td>R @ClaimTotal</td>
                              <td>@claim.DateOfClaim?.ToShortDateString()</td>
                              <td>
